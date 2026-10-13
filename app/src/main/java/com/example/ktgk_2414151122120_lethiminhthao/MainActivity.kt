@@ -59,10 +59,42 @@ class MainActivity : AppCompatActivity() {
 
     private fun xuLyXemChiTiet120() {
 
-        Toast.makeText(
+        val tenKhoanChi = binding.edtTenKhoanChi120.text.toString().trim()
+        val soTien = binding.edtSoTien120.text.toString().trim()
+        val ghiChu = binding.edtGhiChu120.text.toString().trim()
+
+        if (tenKhoanChi.isEmpty()) {
+            binding.edtTenKhoanChi120.error =
+                "Vui lòng nhập tên khoản chi"
+            binding.edtTenKhoanChi120.requestFocus()
+            return
+        }
+
+        if (soTien.isEmpty()) {
+            binding.edtSoTien120.error =
+                "Vui lòng nhập số tiền"
+            binding.edtSoTien120.requestFocus()
+            return
+        }
+
+        val soTienDouble = soTien.toDoubleOrNull()
+
+        if (soTienDouble == null || soTienDouble <= 0) {
+            binding.edtSoTien120.error =
+                "Số tiền phải lớn hơn 0"
+            binding.edtSoTien120.requestFocus()
+            return
+        }
+
+        val intent = Intent(
             this,
-            "Chức năng xem chi tiết sẽ thực hiện ở Câu 2",
-            Toast.LENGTH_SHORT
-        ).show()
+            ChiTietChiTieuActivity::class.java
+        )
+
+        intent.putExtra("tenKhoanChi_120", tenKhoanChi)
+        intent.putExtra("soTien_120", soTien)
+        intent.putExtra("ghiChu_120", ghiChu)
+
+        startActivity(intent)
     }
 }
