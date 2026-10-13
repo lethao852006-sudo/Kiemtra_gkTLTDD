@@ -3,6 +3,7 @@ package com.example.ktgk_2414151122120_lethiminhthao
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import com.example.ktgk_2414151122120_lethiminhthao.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
