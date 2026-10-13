@@ -30,6 +30,11 @@ class MainActivity : AppCompatActivity() {
         val tenKhoanChi = binding.edtTenKhoanChi120.text.toString().trim()
         val soTien = binding.edtSoTien120.text.toString().trim()
         val ghiChu = binding.edtGhiChu120.text.toString().trim()
+        val khoanChi_120 = KhoanChi_120(
+            tenKhoanChi_120 = tenKhoanChi,
+            soTien_120 = soTien.toDouble(),
+            ghiChu_120 = ghiChu
+        )
 
         if (tenKhoanChi.isEmpty()) {
             binding.edtTenKhoanChi120.error = "Vui lòng nhập tên khoản chi"
@@ -63,6 +68,11 @@ class MainActivity : AppCompatActivity() {
         val tenKhoanChi = binding.edtTenKhoanChi120.text.toString().trim()
         val soTien = binding.edtSoTien120.text.toString().trim()
         val ghiChu = binding.edtGhiChu120.text.toString().trim()
+        val khoanChi_120 = KhoanChi_120(
+            tenKhoanChi_120 = tenKhoanChi,
+            soTien_120 = soTien.toDouble(),
+            ghiChu_120 = ghiChu
+        )
 
         if (tenKhoanChi.isEmpty()) {
             binding.edtTenKhoanChi120.error =
@@ -97,5 +107,6 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("ghiChu_120", ghiChu)
 
         startActivity(intent)
+
     }
 }
