@@ -30,21 +30,28 @@ class MainActivity : AppCompatActivity() {
         val soTienStr = binding.edtSoTien120.text.toString().trim()
         val ghiChu = binding.edtGhiChu120.text.toString().trim()
 
-        // 1. Kiểm tra tên khoản chi không được để trống hoặc chỉ chứa khoảng trắng
+        // 1. Lấy giá trị loại chi từ ô nhập tương ứng (đảm bảo bạn đã đặt id này trong activity_main.xml)
+        val loaiChi = binding.edtLoaiChi120.text.toString().trim()
+
         if (tenKhoanChi.isEmpty()) {
             binding.edtTenKhoanChi120.error = "Vui lòng nhập tên khoản chi"
             binding.edtTenKhoanChi120.requestFocus()
             return
         }
 
-        // 2. Kiểm tra ô số tiền không được để trống
+        // Kiểm tra loại chi không được để trống theo yêu cầu bổ sung 1
+        if (loaiChi.isEmpty()) {
+            binding.edtLoaiChi120.error = "Vui lòng nhập loại chi tiêu"
+            binding.edtLoaiChi120.requestFocus()
+            return
+        }
+
         if (soTienStr.isEmpty()) {
             binding.edtSoTien120.error = "Vui lòng nhập số tiền"
             binding.edtSoTien120.requestFocus()
             return
         }
 
-        // 3. Kiểm tra định dạng số tiền phải hợp lệ và lớn hơn 0
         val soTienDouble = soTienStr.toDoubleOrNull()
         if (soTienDouble == null || soTienDouble <= 0) {
             binding.edtSoTien120.error = "Số tiền phải lớn hơn 0"
@@ -52,10 +59,11 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        // 4. Khởi tạo đối tượng sau khi đã validate an toàn tuyệt đối
+        // Lúc này biến loaiChi đã tồn tại, dòng gán bên dưới sẽ hết báo lỗi đỏ
         val khoanChi_120 = KhoanChi_120(
             tenKhoanChi_120 = tenKhoanChi,
             soTien_120 = soTienDouble,
+            loaiChi_120 = loaiChi,
             ghiChu_120 = ghiChu
         )
 
@@ -65,27 +73,24 @@ class MainActivity : AppCompatActivity() {
             Toast.LENGTH_SHORT
         ).show()
     }
-
     private fun xuLyXemChiTiet120() {
         val tenKhoanChi = binding.edtTenKhoanChi120.text.toString().trim()
         val soTienStr = binding.edtSoTien120.text.toString().trim()
         val ghiChu = binding.edtGhiChu120.text.toString().trim()
+        val loaiChi = binding.edtLoaiChi120.text.toString().trim() // <-- Lấy loại chi
 
-        // 1. Kiểm tra tên khoản chi
         if (tenKhoanChi.isEmpty()) {
             binding.edtTenKhoanChi120.error = "Vui lòng nhập tên khoản chi"
             binding.edtTenKhoanChi120.requestFocus()
             return
         }
 
-        // 2. Kiểm tra ô số tiền
-        if (soTienStr.isEmpty()) {
-            binding.edtSoTien120.error = "Vui lòng nhập số tiền"
-            binding.edtSoTien120.requestFocus()
+        if (loaiChi.isEmpty()) {
+            binding.edtLoaiChi120.error = "Vui lòng nhập loại chi tiêu"
+            binding.edtLoaiChi120.requestFocus()
             return
         }
 
-        // 3. Kiểm tra số tiền hợp lệ (> 0)
         val soTienDouble = soTienStr.toDoubleOrNull()
         if (soTienDouble == null || soTienDouble <= 0) {
             binding.edtSoTien120.error = "Số tiền phải lớn hơn 0"
@@ -93,22 +98,13 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        // 4. Khởi tạo đối tượng an toàn
-        val khoanChi_120 = KhoanChi_120(
-            tenKhoanChi_120 = tenKhoanChi,
-            soTien_120 = soTienDouble,
-            ghiChu_120 = ghiChu
-        )
-
-        // 5. Chuyển màn hình qua Intent
-        val intent = Intent(
-            this,
-            ChiTietChiTieuActivity::class.java
-        )
-
-        intent.putExtra("tenKhoanChi_120", tenKhoanChi)
-        intent.putExtra("soTien_120", soTienStr)
-        intent.putExtra("ghiChu_120", ghiChu)
+        // Truyền dữ liệu qua Intent sang màn hình chi tiết
+        val intent = Intent(this, ChiTietChiTieuActivity::class.java).apply {
+            putExtra("tenKhoanChi_120", tenKhoanChi)
+            putExtra("soTien_120", soTienStr)
+            putExtra("ghiChu_120", ghiChu)
+            putExtra("loaiChi_120", loaiChi) // <-- Đính kèm loại chi
+        }
 
         startActivity(intent)
     }
