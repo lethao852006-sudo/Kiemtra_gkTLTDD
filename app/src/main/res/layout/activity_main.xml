@@ -42,6 +42,13 @@
             android:hint="Nhập tên khoản chi"
             android:inputType="text"
             android:layout_marginBottom="16dp" />
+        <EditText
+            android:id="@+id/edtLoaiChi_120"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập loại chi (VD: Ăn uống, Đi lại...)"
+            android:inputType="text"
+            android:layout_marginTop="12dp" />
 
         <TextView
             android:id="@+id/tvNhanSoTien"

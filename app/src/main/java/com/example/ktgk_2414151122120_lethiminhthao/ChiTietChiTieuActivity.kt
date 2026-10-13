@@ -28,6 +28,7 @@ class ChiTietChiTieuActivity : AppCompatActivity() {
         val soTien = intent.getStringExtra("soTien_120")
         val ghiChu = intent.getStringExtra("ghiChu_120")
 
+
         if (tenKhoanChi.isNullOrBlank()) {
             Toast.makeText(
                 this,
